@@ -26,9 +26,13 @@
                 </div>
 
                 <div class="login-form">
-                    <asp:TextBox runat="server" ID="txtLogin" placeholder="Username"></asp:TextBox>
-                    <asp:TextBox runat="server" ID="txtPassword" TextMode="Password" placeholder="Password" />
-                    <asp:Button runat="server" ID="btnLogin" Text="LOGIN" />
+                    <div class="login-field">
+                        <asp:TextBox runat="server" class="validateble" ID="txtLogin" placeholder="Username"></asp:TextBox>
+                    </div>
+                    <div class="login-field">
+                        <asp:TextBox runat="server" class="validateble" ID="txtPassword" TextMode="Password" placeholder="Password" />
+                    </div>
+                    <asp:Button runat="server" class="disableble" ID="btnLogin" Text="LOGIN" />
                     <p class="message">Not registered? <a href="#">Create an account</a></p>
                 </div>
 
@@ -36,31 +40,58 @@
         </div>
     </div>
 
-
-
-
     <script type="text/javascript">
         $(".message").click(function () {
             $('.register-form').animate({ height: "toggle", opacity: "toggle" }, "slow");
             $('.login-form').animate({ height: "toggle", opacity: "toggle" }, "slow");
         });
 
+        $(".validateble").change(function () {
+            validateField($(this));
+        });
 
-    </script>
-    <script type="text/javascript">
+        function validateField($field) {
+            var $form = $field.closest('form');
+            var value = $field.val();
+            form_error_clear($form, $field);
 
-        const Http = new XMLHttpRequest();
-        const url = 'https://api.weather.yandex.ru/v1/forecast/';
-        Http.open("GET", url);
-        Http.setRequestHeader("X-Yandex-API-Key", "eb5930e0-d5aa-4acd-adc3-bb4bf7dbd92b")
-        Http.setRequestHeader("Access-Control-Allow-Origin", "https://api.weather.yandex.ru")
+            if ($.trim(value.length) == 0) {
+                showError($field, "Необходимо заполнить поле");
+                toggleSubmitButton($form);
+                return false;
+            }
+            toggleSubmitButton($form);
+        }
 
-        Http.send();
+        function toggleSubmitButton($form) {
+            console.log("form = " + $form);
+            var disabled_submit = false;
+            $form.find('[class="validateble"]').each(function (i, field) {
+                if ($.trim($(field).val()) == '') {
+                    disabled_submit = true;
+                }
+            })
+            if (!disabled_submit) {
+                form_errors_clear($form)
+            }
+            $form.find('.disableble').prop('disabled', disabled_submit);
+        }
 
-        Http.onreadystatechange = (e) => {
-            var obj = JSON.parse(Http.responseText)
-            alert('Текущая температура = '+ obj['fact']['temp'])
-            //console.log(Http.responseText)
+        function showError($field, text) {
+            field = $field.closest('.login-field');
+            field.addClass('s-with-error');
+            field.append('<div class="s-error">' + text + '</div>');
+        }
+
+        function form_errors_clear($form) {
+            $form.find('.s-with-error').removeClass('s-with-error');
+            $form.find('.s-error').remove();
+        }
+
+        function form_error_clear($form, $field) {
+            var $field = $field.closest('.s-field');
+            $field.removeClass('s-with-error');
+            $field.find('.s-error').remove();
         }
     </script>
 </body>

@@ -28,7 +28,7 @@ namespace Application.Controls {
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCost;
+        protected global::Application.ServerControls.CostTextbox txtCost;
         
         /// <summary>
         /// txtDescription элемент управления.

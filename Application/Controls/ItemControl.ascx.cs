@@ -12,7 +12,6 @@ namespace Application.Controls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
                 if (EditMode)
@@ -46,10 +45,10 @@ namespace Application.Controls
             set { txtName.Text = value; }
         }
 
-        public string Cost
+        public int Cost
         {
-            get { return txtCost.Text; }
-            set { txtCost.Text = value; }
+            get { return txtCost.Cost; }
+            set { txtCost.Text = value.ToString(); }
         }
 
         public string Description

@@ -1,6 +1,9 @@
-﻿using DbProject;
+﻿using BLService;
+using DbProject;
+using DeliveryModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,30 +12,69 @@ using System.Web.Http.Cors;
 
 namespace DeliveryAPI.Controllers
 {
-    [EnableCors(origins: "http://localhost:52384", headers: "*", methods: "*")]
-    //[EnableCors(origins: "http://myclient.azurewebsites.net", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        product[] products = new product[]
-         {
-            new product { product_id = 1, product_name = "Tomato Soup", cost = 1 },
-            new product { product_id = 2, product_name = "Yo-yo", cost = 4 },
-            new product { product_id = 3, product_name = "Hammer", cost = 3 }
-         };
+        ProductService productService;
 
-        public IEnumerable<product> GetAllProducts()
+        public ProductsController()
         {
-            return products;
+            productService = DataFactory.GetProductService();
         }
 
-        public IHttpActionResult GetProduct(int id)
+        public HttpResponseMessage GetAllProducts()
         {
-            var product = products.FirstOrDefault((p) => p.product_id == id);
-            if (product == null)
+            using (var context = new DeliveryAppEntities())
             {
-                return NotFound();
+                var data = productService.GetAllProducts();
+                return Request.CreateResponse(HttpStatusCode.OK, data, Configuration.Formatters.JsonFormatter);
             }
-            return Ok(product);
+        }
+
+        public HttpResponseMessage GetProduct(int id)
+        {
+            var data = productService.GetProduct(id);
+            if (data == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, data, Configuration.Formatters.JsonFormatter);
+        }
+   
+        public HttpResponseMessage DeleteProduct(int id)
+        {
+            try
+            {
+                bool ok = productService.DeleteProduct(id);
+                if (ok == false)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError,
+#if DEBUG
+                    ex.ToString()
+#else
+                    "Server error occured"
+#endif
+                    );
+            }
+        }
+
+        public HttpResponseMessage PostUpdateProduct([FromBody]product curProduct)
+        {
+            productService.UpdateProduct(curProduct);
+            return Request.CreateResponse(HttpStatusCode.OK);
+
+        }
+
+        public HttpResponseMessage PutAddProduct([FromBody]product curProduct)
+        {
+            productService.AddProduct(curProduct);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

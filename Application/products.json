@@ -1,0 +1,80 @@
+[
+  {
+    "ID": 1,
+    "ProductName": "Meat Pizza",
+    "Cost": 29,
+    "Description": "Very delicious"
+  },
+  {
+    "ID": 2,
+    "ProductName": "European Pizza",
+    "Cost": 299,
+    "Description": ""
+  },
+  {
+    "ID": 3,
+    "ProductName": "Pizza Barbecue",
+    "Cost": 599,
+    "Description": ""
+  },
+  {
+    "ID": 4,
+    "ProductName": "Pizza Diablo",
+    "Cost": 0,
+    "Description": ""
+  },
+  {
+    "ID": 5,
+    "ProductName": "Peperoni",
+    "Cost": 100,
+    "Description": ""
+  },
+  {
+    "ID": 6,
+    "ProductName": "Vegetarian Pizza",
+    "Cost": 100,
+    "Description": ""
+  },
+  {
+    "ID": 7,
+    "ProductName": "California",
+    "Cost": 100,
+    "Description": ""
+  },
+  {
+    "ID": 8,
+    "ProductName": "Philadelphia",
+    "Cost": 100,
+    "Description": ""
+  },
+  {
+    "ID": 9,
+    "ProductName": "Chicken and cheese",
+    "Cost": 100,
+    "Description": ""
+  },
+  {
+    "ID": 10,
+    "ProductName": "Creamy shrimp",
+    "Cost": 100,
+    "Description": ""
+  },
+  {
+    "ID": 11,
+    "ProductName": "Chicken spice",
+    "Cost": 100,
+    "Description": ""
+  },
+  {
+    "ID": 12,
+    "ProductName": "Burger New York",
+    "Cost": 100,
+    "Description": ""
+  },
+  {
+    "ID": 13,
+    "ProductName": "The Texas Burger",
+    "Cost": 100,
+    "Description": ""
+  }
+]

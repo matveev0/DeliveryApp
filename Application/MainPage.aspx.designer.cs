@@ -22,30 +22,30 @@ namespace Application {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// dbProducts элемент управления.
+        /// burgerRepeater элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid dbProducts;
+        protected global::System.Web.UI.WebControls.Repeater burgerRepeater;
         
         /// <summary>
-        /// rpt элемент управления.
+        /// sushiDatagrid элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rpt;
+        protected global::System.Web.UI.WebControls.DataGrid sushiDatagrid;
         
         /// <summary>
-        /// rpt2 элемент управления.
+        /// pizzaRepeater элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rpt2;
+        protected global::System.Web.UI.WebControls.Repeater pizzaRepeater;
     }
 }

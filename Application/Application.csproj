@@ -123,13 +123,54 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controls\ItemControl.ascx" />
+    <Content Include="CSS\animate.css" />
+    <Content Include="CSS\aos.css" />
+    <Content Include="CSS\bootstrap.min.css" />
+    <Content Include="CSS\bootstrap\bootstrap-grid.css" />
+    <Content Include="CSS\bootstrap\bootstrap-reboot.css" />
+    <Content Include="CSS\css\bootstrap-reboot.css" />
+    <Content Include="CSS\css\mixins\_text-hide.css" />
+    <Content Include="CSS\flaticon.css" />
+    <Content Include="CSS\icomoon.css" />
+    <Content Include="CSS\ionicons.min.css" />
     <Content Include="CSS\LoginStyle.css" />
+    <Content Include="CSS\magnific-popup.css" />
+    <Content Include="CSS\open-iconic-bootstrap.min.css" />
+    <Content Include="CSS\owl.carousel.min.css" />
+    <Content Include="CSS\owl.theme.default.min.css" />
+    <Content Include="CSS\style.css" />
     <Content Include="EditPage.aspx" />
+    <Content Include="images\burger2.jpg" />
+    <Content Include="images\BurgerImage.jpg" />
+    <Content Include="images\divider.jpg" />
+    <Content Include="images\no_image.png" />
+    <Content Include="images\pizza.jpg" />
+    <Content Include="images\sushi.jpg" />
+    <Content Include="images\sushi2.jpg" />
     <Content Include="LoginPage.aspx" />
+    <Content Include="CSS\bootstrap\.DS_Store" />
+    <Content Include="CSS\css\.DS_Store" />
     <None Include="packages.config" />
     <Content Include="MainPage.aspx" />
+    <Content Include="Scripts\aos.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\google-map.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="TestAPI.aspx" />
+    <Content Include="Scripts\jquery-migrate-3.0.1.min.js" />
+    <Content Include="Scripts\jquery.animateNumber.min.js" />
+    <Content Include="Scripts\jquery.easing.1.3.js" />
+    <Content Include="Scripts\jquery.magnific-popup.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.stellar.min.js" />
+    <Content Include="Scripts\jquery.tmpl.min.js" />
+    <Content Include="Scripts\jquery.waypoints.min.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\owl.carousel.min.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\scrollax.min.js" />
+    <Content Include="Templates\ItemTemplate.html" />
+    <Content Include="API.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -162,17 +203,19 @@
       <DependentUpon>MainPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestAPI.aspx.cs">
-      <DependentUpon>TestAPI.aspx</DependentUpon>
+    <Compile Include="WebControls\CostTextbox.cs" />
+    <Compile Include="API.aspx.cs">
+      <DependentUpon>API.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TestAPI.aspx.designer.cs">
-      <DependentUpon>TestAPI.aspx</DependentUpon>
+    <Compile Include="API.aspx.designer.cs">
+      <DependentUpon>API.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="products.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -181,6 +224,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLService\BLService.csproj">
+      <Project>{D9064B8A-07F6-49A1-9140-75DF9A1070D2}</Project>
+      <Name>BLService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DbProject\DbProject.csproj">
       <Project>{34a03995-bc96-4ccc-8b55-7da16caefd9a}</Project>
       <Name>DbProject</Name>
