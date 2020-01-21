@@ -147,6 +147,7 @@
     <Content Include="images\pizza.jpg" />
     <Content Include="images\sushi.jpg" />
     <Content Include="images\sushi2.jpg" />
+    <Content Include="js\jquery-control.js" />
     <Content Include="LoginPage.aspx" />
     <Content Include="CSS\bootstrap\.DS_Store" />
     <Content Include="CSS\css\.DS_Store" />
@@ -211,6 +212,7 @@
     <Compile Include="API.aspx.designer.cs">
       <DependentUpon>API.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebControls\ValidatableTextbox.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

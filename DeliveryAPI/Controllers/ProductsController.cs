@@ -15,25 +15,25 @@ namespace DeliveryAPI.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        ProductService productService;
+        IService productService;
 
-        public ProductsController()
+        public ProductsController(IService service)
         {
-            productService = DataFactory.GetProductService();
+            productService = service;
         }
 
-        public HttpResponseMessage GetAllProducts()
+        public HttpResponseMessage GetProducts(int page = 1, int pageLen = 3)
         {
             using (var context = new DeliveryAppEntities())
             {
-                var data = productService.GetAllProducts();
+                var data = productService.GetMany(page, pageLen);
                 return Request.CreateResponse(HttpStatusCode.OK, data, Configuration.Formatters.JsonFormatter);
             }
         }
 
         public HttpResponseMessage GetProduct(int id)
         {
-            var data = productService.GetProduct(id);
+            var data = productService.Get(id);
             if (data == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -45,7 +45,7 @@ namespace DeliveryAPI.Controllers
         {
             try
             {
-                bool ok = productService.DeleteProduct(id);
+                bool ok = productService.Delete(id);
                 if (ok == false)
                 {
                     return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -66,14 +66,14 @@ namespace DeliveryAPI.Controllers
 
         public HttpResponseMessage PostUpdateProduct([FromBody]product curProduct)
         {
-            productService.UpdateProduct(curProduct);
+            productService.Update(curProduct);
             return Request.CreateResponse(HttpStatusCode.OK);
 
         }
 
         public HttpResponseMessage PutAddProduct([FromBody]product curProduct)
         {
-            productService.AddProduct(curProduct);
+            productService.Add(curProduct);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

@@ -12,8 +12,24 @@
 </head>
 <body>
     <div>
+       
         <h2>All Products</h2>
-        <ul id="products" />
+        <%--<ul id="products" />--%>
+         <div id="results">
+            <table>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="navPanel">
+            <a href="#" id="firstPage" class="navBtn">Первая страница</a>
+            <a href="#" id="prevPage" class="navBtn">&laquo;</a>
+            <%--<div id="pageIndicator">Loading...</div>--%>
+            <a id="pageIndicator">Loading...</a>
+            <a href="#" id="nextPage" class="navBtn">&raquo;</a>
+            <a href="#" id="lastPage" class="navBtn">Последняя страница</a>
+        </div>
 
         <form id="form1" runat="server">
             <div>
@@ -47,10 +63,44 @@
 
     <script type="text/javascript">
         var serverURL = '<%=APIServerURL%>';
+        var _page = 1;
+
+        var _pageLen = <%=PageLen%>;
+        var _pageCount = 0;
 
         $(window).on('load', function () {
             loadTemplates();
-            loadData();
+            loadData(1, _pageLen);
+
+              $('#deleteButton').click(function (e) {
+                        console.log(e);
+                        var id = $(e.target).attr("productID");
+                        if (confirm("Do you really want to delete product with ID = " + id)) {
+                            deleteEntity(id);
+                        }
+                    });
+            $('#firstPage').click(function () {
+                loadData(1, _pageLen);
+            });
+
+            $('#prevPage').click(function () {
+                if (_page == 1)
+                    alert("It's a first page!");
+                else
+                    loadData(_page - 1, _pageLen);
+            });
+
+            $('#nextPage').click(function () {
+                if (_page == _pageCount + 1)
+                    alert("No more pages!");
+                else
+                    loadData(_page + 1, _pageLen);
+            });
+
+            $('#lastPage').click(function () {
+                loadData(_pageCount, _pageLen);
+            });
+
         });
 
         function loadTemplates() {
@@ -59,18 +109,33 @@
             });
         }
 
-        function loadData() {
-            $.getJSON(serverURL + "/api/Products")
-                .done(function (data) {
-                    $.tmpl("productItem", data).appendTo($('#products'));
+        function loadData(page, pageLen) {
+            var url = serverURL + "/api/Products?";
 
-                    $("a").click(function (e) {
-                        console.log(e);
-                        var id = $(e.target).attr("productID");
-                        if (confirm("Do you really want to delete product with ID = " + id)) {
-                            deleteEntity(id);
-                        }
-                    });
+            $("#results>table>tbody").html("");
+
+            _page = page;
+
+            if (page)
+                url += "page=" + page + "&";
+            if (pageLen)
+                url += "pageLen=" + pageLen + "&";
+
+            $.getJSON(url)
+                .done(function (obj) {
+                    _pageCount = obj.PageCount;
+                    $("#pageIndicator").html(_page + " of " + _pageCount);
+                    //$.tmpl("productItem", obj.Page).appendTo($('#products'));
+                    $.tmpl("productItem", obj.Page).appendTo($("#results>table>tbody"));
+
+
+                    //$("a").click(function (e) {
+                    //    console.log(e);
+                    //    var id = $(e.target).attr("productID");
+                    //    if (confirm("Do you really want to delete product with ID = " + id)) {
+                    //        deleteEntity(id);
+                    //    }
+                    //});
 
                     //$.each(data, function (key, item) {
                     //    $('<li>', { text: formatItem(item) }).appendTo($('#products'));

@@ -21,6 +21,8 @@ namespace Application
             addButton.Click += AddButton_Click;
         }
 
+      
+
         private void fillProductTypes()
         {
             using (var context = new DeliveryAppEntities())
@@ -70,12 +72,12 @@ namespace Application
                     Console.Write("Error");
             }
         }
-        //protected string PageLen
-        //{
-        //    get
-        //    {
-        //        return ConfigurationManager.AppSettings["PageLen"] ?? "10";
-        //    }
-        //}
+        protected string PageLen
+        {
+            get
+            {
+                return "6";
+            }
+        }
     }
 }

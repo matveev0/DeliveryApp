@@ -7,7 +7,7 @@ namespace BLService
 {
     public class ProductService : IService
     {
-        public void AddProduct(product curProduct)
+        public void Add(product curProduct)
         {
             using (var context = new DeliveryAppEntities())
             {
@@ -16,7 +16,7 @@ namespace BLService
             }
         }
 
-        public bool DeleteProduct(int ID)
+        public bool Delete(int ID)
         {
             using (var context = new DeliveryAppEntities())
             {
@@ -31,7 +31,7 @@ namespace BLService
             }
         }
 
-        public void UpdateProduct(product curProduct)
+        public void Update(product curProduct)
         {
             using (var context = new DeliveryAppEntities())
             {
@@ -48,7 +48,7 @@ namespace BLService
 
         }
 
-        public ItemModel GetProduct(int ID)
+        public ItemModel Get(int ID)
         {
             using (var context = new DeliveryAppEntities())
             {
@@ -67,7 +67,7 @@ namespace BLService
             }
         }
 
-        public List<ItemModel> getProductsByProductType(int typeID)
+        public List<ItemModel> GetByType(int typeID)
         {
             using (var context = new DeliveryAppEntities())
             {
@@ -85,11 +85,19 @@ namespace BLService
             }
         }
 
-        public List<ItemModel> GetAllProducts()
+        public PagedResult<ItemModel>  GetMany(int page, int pageLen)
         {
             using (var context = new DeliveryAppEntities())
             {
-                var data = (from c in context.product
+                IEnumerable<product> query = null;
+                query = (from o in context.product select o).OrderBy(o => o.product_id).Skip((page - 1) * pageLen).Take(pageLen);
+                int pc = query.Count() / pageLen + 1;
+
+                pc = (from o in context.product select o).Count() / pageLen + 1;
+
+                var dbEntities = query.ToArray();
+
+                var data = (from c in dbEntities
                             select new ItemModel()
                             {
                                 ID = c.product_id,
@@ -97,8 +105,8 @@ namespace BLService
                                 Cost = c.cost,
                                 Description = c.description
                             }
-                                           ).ToList();
-                return data;
+                                           ).ToArray();
+                return new PagedResult<ItemModel>() { Page = data, PageCount = pc };
             }
         }
     }

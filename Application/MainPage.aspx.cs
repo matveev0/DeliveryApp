@@ -34,21 +34,21 @@ namespace Application
 
         private void fillBurgersData()
         {
-            var data = productService.getProductsByProductType(3);
+            var data = productService.GetByType(3);
             burgerRepeater.DataSource = data;
             burgerRepeater.DataBind();
         }
 
         private void fillSushiData()
         {
-            var data = productService.getProductsByProductType(2);
+            var data = productService.GetByType(2);
             sushiDatagrid.DataSource = data;
             sushiDatagrid.DataBind();
         }
 
         private void fillPizzaData()
         {
-            var data = productService.getProductsByProductType(1);
+            var data = productService.GetByType(1);
             pizzaRepeater.DataSource = data;
             pizzaRepeater.DataBind();
         }
